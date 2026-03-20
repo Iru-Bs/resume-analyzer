@@ -1,1 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Resume Analyzer</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            text-align: center;
+            color: white;
+        }
 
+        .card {
+            background: white;
+            color: black;
+            padding: 25px;
+            margin: 60px auto;
+            width: 450px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.3);
+        }
+
+        input, textarea {
+            width: 95%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            padding: 10px;
+            border: none;
+            margin-top: 10px;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .progress {
+            background: #ddd;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .bar {
+            height: 20px;
+            background: green;
+            width: {{score}}%;
+        }
+
+        .skills {
+            text-align: left;
+            margin-top: 15px;
+        }
+
+        .matched {
+            color: green;
+        }
+
+        .missing {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>🚀 AI Resume Analyzer</h1>
+
+<div class="card">
+
+<form method="POST" enctype="multipart/form-data">
+    <input type="file" name="resume" required>
+    <textarea name="job" rows="5" placeholder="Paste Job Description" required></textarea>
+    <button type="submit">Analyze</button>
+</form>
+
+{% if score is not none %}
+    <h3>Match Score: {{score}}%</h3>
+
+    <div class="progress">
+        <div class="bar"></div>
+    </div>
+
+    <div class="skills">
+        <h4 class="matched">✅ Matched Skills:</h4>
+        <ul>
+            {% for s in matched %}
+            <li>{{s}}</li>
+            {% endfor %}
+        </ul>
+
+        <h4 class="missing">❌ Missing Skills:</h4>
+        <ul>
+            {% for s in missing %}
+            <li>{{s}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+</div>
+
+</body>
+</html>
